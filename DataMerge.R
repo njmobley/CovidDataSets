@@ -34,6 +34,6 @@ colnames(wide)[1] = "name"
 #joins data
 all.info = left_join(all.info,wide)
 #joins pollution (it was measured strangly so needed to be seperate)
-all.info = left_join(wide,get_pollution)
+all.info = left_join(all.info,get_pollution)
 # save CSV in CWD
 write_csv(all.info,"masterFile.csv")
