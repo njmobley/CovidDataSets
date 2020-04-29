@@ -32,7 +32,7 @@ all.info = inner_join(current,info,by = "state") %>%
     )
 colnames(wide)[1] = "name"
 #joins data
-all.info = left_join(wide,all.info)
+all.info = left_join(all.info,wide)
 #joins pollution (it was measured strangly so needed to be seperate)
 all.info = left_join(wide,get_pollution)
 # save CSV in CWD
