@@ -4,7 +4,7 @@ get_pollution = read_csv("2019-Annual.csv") %>%
     mutate(
         `Measure Name` = as.factor(`Measure Name`),
         name = `State Name`,
-        `Air Pollution` = Rank
+        `Air Pollution` = Score
     ) %>%
     filter(`Measure Name` == "Air Pollution") %>%
     select(c(name,`Air Pollution`))
@@ -18,10 +18,10 @@ state_health = read_csv("2019-Annual.csv") %>%
     mutate(
         MeasureName = as.factor(`Measure Name`)
     ) %>%
-    select(c(`State Name`,Rank,MeasureName))
+    select(c(`State Name`,Score,MeasureName))
 #pivots the rankings 
 wide = pivot_wider(state_health,names_from = MeasureName,
-                   values_from = Rank) %>%
+                   values_from = Score) %>%
     slice(1:50)
 # merges gives abbrevs names
 all.info = inner_join(current,info,by = "state") %>%
@@ -36,4 +36,4 @@ all.info = left_join(wide,all.info)
 #joins pollution (it was measured strangly so needed to be seperate)
 all.info = left_join(wide,get_pollution)
 # save CSV in CWD
-#write_csv(all.info,"ENTER DESIRED FILE NAME")
+write_csv(all.info,"masterFile.csv")
